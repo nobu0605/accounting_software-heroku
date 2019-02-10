@@ -1,7 +1,7 @@
 # 使用ライブラリ
 
-styled-components
-axios
+styled-components<br/>
+axios<br/>
 moment
 react-modal
 react-fontawesome
