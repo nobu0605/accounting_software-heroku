@@ -31,7 +31,7 @@ export default class List extends Component {
       password: 'hogehoge',
       scope: '*'
     }
-    let uri = 'http://167.99.71.79/api/oauth/token'
+    let uri = 'https://api-accounting-software.herokuapp.com/api/oauth/token'
     axios
       .post(uri, loginInfo)
       .then(response => {

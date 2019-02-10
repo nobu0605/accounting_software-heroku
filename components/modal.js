@@ -88,9 +88,11 @@ export default class ModalWindow extends React.Component {
       remark: this.state.remark,
       user_id: this.state.user_id
     }
-    let uri = 'http://167.99.71.79/api/journals/' + this.props.journalData.id
+    let uri =
+      'https://api-accounting-software.herokuapp.com/api/journals/' +
+      this.props.journalData.id
     axios.patch(uri, journals).then(response => {
-      location.href = 'http://localhost:3000/list'
+      location.href = 'https://accounting-soft.herokuapp.com/list'
     })
   }
 

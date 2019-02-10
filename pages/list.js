@@ -17,15 +17,19 @@ export default class List extends Component {
   }
 
   static async getInitialProps() {
-    const res = await axios.get('http://167.99.71.79/api/journals')
-    const resonse = await axios.get('http://167.99.71.79/api/accounts')
+    const res = await axios.get(
+      'https://api-accounting-software.herokuapp.com/api/journals'
+    )
+    const resonse = await axios.get(
+      'https://api-accounting-software.herokuapp.com/api/accounts'
+    )
     return { journals: res.data, account: resonse.data }
   }
 
   handleDeletion(id) {
-    let uri = 'http://167.99.71.79/api/journals/' + id
+    let uri = 'https://api-accounting-software.herokuapp.com/api/journals/' + id
     axios.delete(uri)
-    location.href = 'http://localhost:3000/list'
+    location.href = 'https://accounting-soft.herokuapp.com/list'
   }
 
   render() {

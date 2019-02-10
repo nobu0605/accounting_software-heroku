@@ -22,7 +22,9 @@ export default class Index extends React.Component {
     this.handleChange = this.handleChange.bind(this)
   }
   static async getInitialProps() {
-    const response = await axios.get('http://167.99.71.79/api/accounts')
+    const response = await axios.get(
+      'https://api-accounting-software.herokuapp.com/api/accounts'
+    )
     return { accounts: response.data, errors: response.data }
   }
 
@@ -45,7 +47,7 @@ export default class Index extends React.Component {
       remark: this.state.remark,
       user_id: this.state.user_id
     }
-    let uri = 'http://167.99.71.79/api/journals'
+    let uri = 'https://api-accounting-software.herokuapp.com/api/journals'
     axios
       .post(uri, journal)
       .then(response => {

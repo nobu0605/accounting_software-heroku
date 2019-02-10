@@ -16,7 +16,9 @@ export default class Index extends React.Component {
     this.handleDeletion = this.handleDeletion.bind(this)
   }
   static async getInitialProps() {
-    const resonse = await axios.get('http://167.99.71.79/api/accounts')
+    const resonse = await axios.get(
+      'https://api-accounting-software.herokuapp.com/api/accounts'
+    )
     return { accounts: resonse.data }
   }
 
@@ -30,14 +32,14 @@ export default class Index extends React.Component {
       account: this.state.account,
       type: this.state.type
     }
-    let uri = 'http://167.99.71.79/api/accounts'
+    let uri = 'https://api-accounting-software.herokuapp.com/api/accounts'
     axios.post(uri, account).then(response => {
       location.href = 'http://localhost:3000/config'
     })
   }
 
   handleDeletion(id) {
-    let uri = 'http://167.99.71.79/api/accounts/' + id
+    let uri = 'https://api-accounting-software.herokuapp.com/api/accounts/' + id
     axios.delete(uri)
     location.href = 'http://localhost:3000/config'
   }

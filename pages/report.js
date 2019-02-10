@@ -5,7 +5,9 @@ import axios from 'axios'
 
 export default class Report extends React.Component {
   static async getInitialProps() {
-    const res = await axios.get('http://167.99.71.79/api/reports')
+    const res = await axios.get(
+      'https://api-accounting-software.herokuapp.com/api/reports'
+    )
     return { reports: res.data }
   }
   render() {

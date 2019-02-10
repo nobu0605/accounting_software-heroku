@@ -5,8 +5,12 @@ import styled from 'styled-components'
 
 export default class profitLossStatement extends React.Component {
   static async getInitialProps() {
-    const response = await axios.get('http://167.99.71.79/api/amounts')
-    const res = await axios.get('http://167.99.71.79/api/reports')
+    const response = await axios.get(
+      'https://api-accounting-software.herokuapp.com/api/amounts'
+    )
+    const res = await axios.get(
+      'https://api-accounting-software.herokuapp.com/api/reports'
+    )
     return { amounts: response.data, profitLoss: res.data }
   }
   render() {
