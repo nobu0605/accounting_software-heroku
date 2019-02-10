@@ -41,7 +41,6 @@ export default class List extends Component {
           headers: headers,
           success: 'ログインに成功しました！'
         })
-        // location.href = 'http://localhost:3000'
         const cookies = new Cookies()
         cookies.set('pass', headers)
       })

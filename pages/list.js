@@ -4,7 +4,6 @@ import Header from '../components/Header.js'
 import styled from 'styled-components'
 import moment from 'moment'
 import ModalWindow from '../components/modal.js'
-import Cookies from 'universal-cookie'
 import { CSVLink } from 'react-csv'
 
 export default class List extends Component {

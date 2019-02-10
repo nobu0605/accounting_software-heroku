@@ -34,14 +34,14 @@ export default class Index extends React.Component {
     }
     let uri = 'https://api-accounting-software.herokuapp.com/api/accounts'
     axios.post(uri, account).then(response => {
-      location.href = 'http://localhost:3000/config'
+      location.href = 'https://accounting-soft.herokuapp.com/config'
     })
   }
 
   handleDeletion(id) {
     let uri = 'https://api-accounting-software.herokuapp.com/api/accounts/' + id
     axios.delete(uri)
-    location.href = 'http://localhost:3000/config'
+    location.href = 'https://accounting-soft.herokuapp.com/config'
   }
 
   render() {

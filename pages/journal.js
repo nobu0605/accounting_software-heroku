@@ -51,7 +51,7 @@ export default class Index extends React.Component {
     axios
       .post(uri, journal)
       .then(response => {
-        location.href = 'http://localhost:3000/list'
+        location.href = 'https://accounting-soft.herokuapp.com/list'
       })
       .catch(error => {
         if (error.response) {
