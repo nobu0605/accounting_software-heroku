@@ -2,8 +2,8 @@
 
 styled-components<br/>
 axios<br/>
-moment
-react-modal
-react-fontawesome
-react-google-charts
-react-vis
+moment<br/>
+react-modal<br/>
+react-fontawesome<br/>
+react-google-charts<br/>
+react-vis<br/>
