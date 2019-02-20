@@ -8,6 +8,7 @@
 ・react-vis<br/>
 ・react-csv<br/>
 
-・開発ツール: ESLint(airbnb)、Pretter
+# 開発ツール 
+ESLint(airbnb)、Pretter
 
 認証機能は実装途中です。
