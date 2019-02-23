@@ -95,7 +95,7 @@ export default class Index extends React.Component {
                 <TableData>No</TableData>
                 <TableData>勘定科目</TableData>
                 <TableData>区分</TableData>
-                <TableData>削除</TableData>
+                {/* <TableData>削除</TableData> */}
               </tr>
             </thead>
             <tbody>
@@ -105,11 +105,11 @@ export default class Index extends React.Component {
                     <TableData>{account.id}</TableData>
                     <TableData>{account.account}</TableData>
                     <TableData>{account.type}</TableData>
-                    <TableData>
+                    {/* <TableData>
                       <form onClick={() => this.handleDeletion(account.id)}>
                         <input type="submit" value="Delete" />
                       </form>
-                    </TableData>
+                    </TableData> */}
                   </tr>
                 )
               })}
