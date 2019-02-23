@@ -26,6 +26,9 @@ export default class List extends Component {
   }
 
   handleDeletion(id) {
+    if (!confirm('本当に削除しますか?')) {
+      return
+    }
     let uri = 'https://api-accounting-software.herokuapp.com/api/journals/' + id
     axios.delete(uri)
     location.href = 'https://accounting-soft.herokuapp.com/list'
