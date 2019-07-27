@@ -15,6 +15,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 library.add(faChartPie, faHome, faBookOpen, faBook, faPen, faSignal, faCog)
 import Link from 'next/link'
+
 export default class Header extends React.Component {
   render() {
     return (
@@ -86,7 +87,7 @@ export default class Header extends React.Component {
             </Link>
           </HeaderMenu>
         </HeaderContainer>
-        <div style={{ height: 130 }} />
+        <div style={{ height: 10 }} />
       </div>
     )
   }
@@ -115,9 +116,7 @@ const MenuList = styled.span`
   cursor: hand;
 `
 const HeaderContainer = styled.div`
-  position: fixed;
   width: 100%;
   top: 0px;
-  z-index: 10;
   background: white;
 `
