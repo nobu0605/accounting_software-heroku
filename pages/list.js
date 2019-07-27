@@ -5,123 +5,144 @@ import styled from 'styled-components'
 import moment from 'moment'
 import ModalWindow from '../components/modal.js'
 import { CSVLink } from 'react-csv'
+import { appUrl, apiUrl } from '../config.js'
 
 export default class List extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      csv: ''
+    constructor(props) {
+        super(props)
+        this.state = {
+            csv: ''
+        }
+        this.handleDeletion = this.handleDeletion.bind(this)
     }
-    this.handleDeletion = this.handleDeletion.bind(this)
-  }
 
-  static async getInitialProps() {
-    const res = await axios.get(
-      'https://api-accounting-software.herokuapp.com/api/journals'
-    )
-    const resonse = await axios.get(
-      'https://api-accounting-software.herokuapp.com/api/accounts'
-    )
-    return { journals: res.data, account: resonse.data }
-  }
-
-  handleDeletion(id) {
-    if (!confirm('本当に削除しますか?')) {
-      return
+    static async getInitialProps() {
+        const url = await import(`../config.js`)
+        const res = await axios.get(`${url.apiUrl}/api/journals`)
+        const resonse = await axios.get(`${url.apiUrl}/api/accounts`)
+        return { journals: res.data, account: resonse.data }
     }
-    let uri = 'https://api-accounting-software.herokuapp.com/api/journals/' + id
-    axios.delete(uri)
-    location.href = 'https://accounting-soft.herokuapp.com/list'
-  }
 
-  render() {
-    const account = this.props.account
+    handleDeletion(id) {
+        if (!confirm('本当に削除しますか?')) {
+            return
+        }
+        let uri = `${apiUrl}/api/journals/` + id
+        axios.delete(uri)
+        location.href = `${appUrl}/list`
+    }
 
-    return (
-      <div>
-        <Header />
-        <h1 style={{ margin: 20 }}>仕訳日記帳</h1>
-        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <CsvButton>
-            <CSVLink style={{ color: 'white' }} data={this.props.journals}>
-              CSVダウンロード
-            </CSVLink>
-          </CsvButton>
-        </div>
-        <table style={{ margin: 20 }} border="1" rules="all">
-          <thead>
-            <tr>
-              <TableData>伝票No</TableData>
-              <TableData>日付</TableData>
-              <TableData>借方科目</TableData>
-              <TableData>補助科目</TableData>
-              <TableData>借方金額</TableData>
-              <TableData>貸方科目</TableData>
-              <TableData>補助科目</TableData>
-              <TableData>貸方金額</TableData>
-              <TableData>摘要</TableData>
-              <TableData>編集</TableData>
-              <TableData>削除</TableData>
-            </tr>
-          </thead>
-          <tbody>
-            {this.props.journals.map((journal, Index) => {
-              return (
-                <tr key={Index}>
-                  <TableData>{journal.id}</TableData>
-                  <TableData>{moment(journal.date).format('Y/M/DD')}</TableData>
-                  <TableData>{account[journal.debit - 1].account}</TableData>
-                  <TableData>{journal.debit_sub_account}</TableData>
-                  <TableData>{journal.amount}</TableData>
-                  <TableData>{account[journal.credit - 1].account}</TableData>
-                  <TableData>{journal.credit_sub_account}</TableData>
-                  <TableData>{journal.amount}</TableData>
-                  <TableData>{journal.remark}</TableData>
-                  <TableData>
-                    <ModalWindow journalData={journal} account={account} />
-                  </TableData>
-                  <TableData>
-                    <form onClick={() => this.handleDeletion(journal.id)}>
-                      <DeleteButton type="submit" value="Delete" />
-                    </form>
-                  </TableData>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
-      </div>
-    )
-  }
+    render() {
+        const account = this.props.account
+
+        return (
+            <div>
+                <Header />
+                <h1 style={{ margin: 20 }}>仕訳日記帳</h1>
+                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <CsvButton>
+                        <CSVLink
+                            style={{ color: 'white' }}
+                            data={this.props.journals}
+                        >
+                            CSVダウンロード
+                        </CSVLink>
+                    </CsvButton>
+                </div>
+                <table style={{ margin: 20 }} border="1" rules="all">
+                    <thead>
+                        <tr>
+                            <TableData>伝票No</TableData>
+                            <TableData>日付</TableData>
+                            <TableData>借方科目</TableData>
+                            <TableData>補助科目</TableData>
+                            <TableData>借方金額</TableData>
+                            <TableData>貸方科目</TableData>
+                            <TableData>補助科目</TableData>
+                            <TableData>貸方金額</TableData>
+                            <TableData>摘要</TableData>
+                            <TableData>編集</TableData>
+                            <TableData>削除</TableData>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.props.journals.map((journal, Index) => {
+                            return (
+                                <tr key={Index}>
+                                    <TableData>{journal.id}</TableData>
+                                    <TableData>
+                                        {moment(journal.date).format('Y/M/DD')}
+                                    </TableData>
+                                    <TableData>
+                                        {account[journal.debit - 1].account}
+                                    </TableData>
+                                    <TableData>
+                                        {journal.debit_sub_account}
+                                    </TableData>
+                                    <TableData>{journal.amount}</TableData>
+                                    <TableData>
+                                        {account[journal.credit - 1].account}
+                                    </TableData>
+                                    <TableData>
+                                        {journal.credit_sub_account}
+                                    </TableData>
+                                    <TableData>{journal.amount}</TableData>
+                                    <TableData>{journal.remark}</TableData>
+                                    <TableData>
+                                        <ModalWindow
+                                            journalData={journal}
+                                            account={account}
+                                        />
+                                    </TableData>
+                                    <TableData>
+                                        <form
+                                            onClick={() =>
+                                                this.handleDeletion(journal.id)
+                                            }
+                                        >
+                                            <DeleteButton
+                                                type="submit"
+                                                value="Delete"
+                                            />
+                                        </form>
+                                    </TableData>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>
+            </div>
+        )
+    }
 }
 
 const TableData = styled.td`
-  height: 40px;
-  padding: 10px;
-  text-align: center;
+    height: 40px;
+    padding: 10px;
+    text-align: center;
 `
 const DeleteButton = styled.input`
-  font-size: 14px;
-  display: block;
-  font-family: HiraginoSans;
-  font-weight: 300;
-  margin-left: 10px;
-  line-height: 1;
-  padding: 10px 30px 10px 30px;
-  border-radius: 10px;
-  background: #386cbf;
-  color: white;
+    font-size: 14px;
+    display: block;
+    font-family: HiraginoSans;
+    font-weight: 300;
+    margin-left: 10px;
+    line-height: 1;
+    padding: 10px 30px 10px 30px;
+    border-radius: 10px;
+    background: #386cbf;
+    color: white;
 `
 const CsvButton = styled.button`
-  font-size: 14px;
-  display: inline-block;
-  font-family: HiraginoSans;
-  font-weight: 300;
-  margin-right: 100px;
-  margin-top: -20px;
-  line-height: 1;
-  padding: 10px 30px 10px 30px;
-  border-radius: 10px;
-  background: #386cbf;
-  color: white;
+    font-size: 14px;
+    display: inline-block;
+    font-family: HiraginoSans;
+    font-weight: 300;
+    margin-right: 100px;
+    margin-top: -20px;
+    line-height: 1;
+    padding: 10px 30px 10px 30px;
+    border-radius: 10px;
+    background: #386cbf;
+    color: white;
 `

@@ -3,6 +3,7 @@ import Head from '../components/Head.js'
 import Header from '../components/Header.js'
 import axios from 'axios'
 import styled from 'styled-components'
+import { appUrl, apiUrl } from '../config.js'
 
 export default class Index extends React.Component {
   constructor(props) {
@@ -22,8 +23,9 @@ export default class Index extends React.Component {
     this.handleChange = this.handleChange.bind(this)
   }
   static async getInitialProps() {
+    const url = await import(`../config.js`)
     const response = await axios.get(
-      'https://api-accounting-software.herokuapp.com/api/accounts'
+      `${url.apiUrl}/api/accounts`
     )
     return { accounts: response.data, errors: response.data }
   }
@@ -47,11 +49,11 @@ export default class Index extends React.Component {
       remark: this.state.remark,
       user_id: this.state.user_id
     }
-    let uri = 'https://api-accounting-software.herokuapp.com/api/journals'
+    let uri = `${apiUrl}/api/journals`
     axios
       .post(uri, journal)
       .then(response => {
-        location.href = 'https://accounting-soft.herokuapp.com/list'
+        location.href = `${appUrl}/list`
       })
       .catch(error => {
         if (error.response) {
