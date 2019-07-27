@@ -2,7 +2,6 @@ import React from 'react'
 import Modal from 'react-modal'
 import styled from 'styled-components'
 import axios from 'axios'
-import {apiUrl,appUrl} from '../config.js'
 
 const customStyles = {
   content: {
@@ -74,6 +73,7 @@ export default class ModalWindow extends React.Component {
 
   handleChange(e, input) {
     this.setState({ [input]: e.target.value })
+    console.log(this.state)
   }
 
   handleSubmit(event) {
@@ -89,10 +89,10 @@ export default class ModalWindow extends React.Component {
       user_id: this.state.user_id
     }
     let uri =
-      `${apiUrl}/api/journals/` +
+      'https://api-accounting-software.herokuapp.com/api/journals/' +
       this.props.journalData.id
     axios.patch(uri, journals).then(response => {
-      location.href = `${appUrl}/list`
+      location.href = 'https://accounting-soft.herokuapp.com/list'
     })
   }
 
