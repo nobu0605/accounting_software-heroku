@@ -33,18 +33,42 @@ export default class Index extends React.Component {
       type: this.state.type
     }
     let uri = 'https://api-accounting-software.herokuapp.com/api/accounts'
-    axios.post(uri, account).then(response => {
+    axios
+      .post(uri, account)
+      .then(response => {
+        location.href = 'https://accounting-soft.herokuapp.com/config'
+      })
+      .catch(error => {
+        if (error.response) {
+          this.setState({
+            errors: error.response.data
+          })
+        }
+      })
+  }
+
+  handleDeletion(e, id) {
+    e.preventDefault()
+    if (!confirm('本当に削除しますか?')) {
+      return
+    }
+    let uri = 'https://api-accounting-software.herokuapp.com/api/accounts/' + id
+    axios.delete(uri).then(response => {
+      if (response.data.length != 0) {
+        this.setState({
+          submittedId: id,
+          deleteError: response.data
+        })
+        return
+      }
       location.href = 'https://accounting-soft.herokuapp.com/config'
     })
   }
 
-  handleDeletion(id) {
-    let uri = 'https://api-accounting-software.herokuapp.com/api/accounts/' + id
-    axios.delete(uri)
-    location.href = 'https://accounting-soft.herokuapp.com/config'
-  }
-
   render() {
+    const { account, type } =
+      this.state.errors == undefined ? '' : this.state.errors.errors
+
     return (
       <div>
         <Head />
@@ -61,6 +85,13 @@ export default class Index extends React.Component {
                   onChange={e => this.handleChange(e, 'account')}
                 />
               </div>
+              <ErrorData
+                style={{
+                  display: this.state.errors == undefined ? 'none' : 'block'
+                }}
+              >
+                {this.state.errors == undefined ? '' : account}
+              </ErrorData>
               <div style={{ margin: 20 }}>
                 <label>区分</label>
                 <select
@@ -83,6 +114,14 @@ export default class Index extends React.Component {
                   <option value="法人税等">法人税等</option>
                 </select>
               </div>
+              <ErrorData
+                style={{
+                  paddingBottom: 20,
+                  display: this.state.errors == undefined ? 'none' : 'block'
+                }}
+              >
+                {this.state.errors == undefined ? '' : type}
+              </ErrorData>
               <div style={{ marginLeft: 20 }}>
                 <EnrollButton>登録</EnrollButton>
               </div>
@@ -95,7 +134,7 @@ export default class Index extends React.Component {
                 <TableData>No</TableData>
                 <TableData>勘定科目</TableData>
                 <TableData>区分</TableData>
-                {/* <TableData>削除</TableData> */}
+                <TableData>削除</TableData>
               </tr>
             </thead>
             <tbody>
@@ -105,11 +144,26 @@ export default class Index extends React.Component {
                     <TableData>{account.id}</TableData>
                     <TableData>{account.account}</TableData>
                     <TableData>{account.type}</TableData>
-                    {/* <TableData>
-                      <form onClick={() => this.handleDeletion(account.id)}>
+                    <TableData>
+                      <form onSubmit={e => this.handleDeletion(e, account.id)}>
                         <input type="submit" value="Delete" />
                       </form>
-                    </TableData> */}
+                      <ErrorData
+                        style={{
+                          paddingBottom: 20,
+                          display:
+                            this.state.deleteError == undefined ||
+                            account.id != this.state.submittedId
+                              ? 'none'
+                              : 'block'
+                        }}
+                      >
+                        {this.state.deleteError == undefined ||
+                        account.id != this.state.submittedId
+                          ? ''
+                          : this.state.deleteError}
+                      </ErrorData>
+                    </TableData>
                   </tr>
                 )
               })}
@@ -137,4 +191,10 @@ const EnrollButton = styled.button`
   border-radius: 10px;
   background: #386cbf;
   color: white;
+`
+const ErrorData = styled.span`
+  color: red;
+  padding-top: 10px;
+  padding-left: 20px;
+  font-size: 15px;
 `

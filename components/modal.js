@@ -73,7 +73,6 @@ export default class ModalWindow extends React.Component {
 
   handleChange(e, input) {
     this.setState({ [input]: e.target.value })
-    console.log(this.state)
   }
 
   handleSubmit(event) {

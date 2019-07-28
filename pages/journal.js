@@ -58,7 +58,6 @@ export default class Index extends React.Component {
           this.setState({
             errors: error.response.data
           })
-          console.log(error.response.data)
         }
       })
   }

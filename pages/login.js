@@ -49,7 +49,6 @@ export default class List extends Component {
           this.setState({
             errors: error.response.data
           })
-          console.log(error.response.data)
         }
       })
   }

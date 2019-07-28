@@ -17,20 +17,25 @@ export default class Index extends React.Component {
     const printData = async () => {
       try {
         let headers = await fetchData()
-        const res = await axios.get('https://api-accounting-software.herokuapp.com/api/reports', {
-          headers: { Authorization: `Bearer ${headers}` }
-        })
-        const response = await axios.get('https://api-accounting-software.herokuapp.com/api/amounts', {
-          headers: { Authorization: `Bearer ${headers}` }
-        })
+        const res = await axios.get(
+          'https://api-accounting-software.herokuapp.com/api/reports',
+          {
+            headers: { Authorization: `Bearer ${headers}` }
+          }
+        )
+        const response = await axios.get(
+          'https://api-accounting-software.herokuapp.com/api/amounts',
+          {
+            headers: { Authorization: `Bearer ${headers}` }
+          }
+        )
         return { reports: res.data, amounts: response.data }
       } catch (e) {
         console.error('Problem', e)
       }
     }
     const datas = await printData()
-    console.log(datas)
-    console.log(req.headers)
+
     return datas
   }
   render() {
