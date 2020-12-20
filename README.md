@@ -1,6 +1,6 @@
 # 使用ライブラリ
 ・styled-components<br/>
-・axios<br/>   
+・axios<br/>    
 ・moment<br/>
 ・react-modal<br/>  
 ・react-fontawesome<br/>
