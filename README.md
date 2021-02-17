@@ -9,7 +9,7 @@
 ・react-csv<br/>　    　   
     　 
 # 開発ツール　
-ESLint、Pretter 　
+ESLint、Pretter 　 
  
  
 　
