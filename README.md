@@ -5,7 +5,7 @@
 ・react-modal<br/>     
 ・react-fontawesome<br/>   
 ・react-google-charts<br/>   　
-・react-vis<br/> 　　     　  
+・react-vis<br/> 　　     　   
 ・react-csv<br/>　    　    
     　 
 # 開発ツール　 
